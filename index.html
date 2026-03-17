@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">Your Name</a>
+      <nav aria-label="Site navigation" class="nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <button id="theme-toggle" aria-label="Toggle theme">🌗</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero container">
+      <div class="hero-copy">
+        <h1>Hello, I’m Your Name</h1>
+        <p>I’m a front-end developer and designer crafting accessible, responsive experiences.</p>
+        <a href="#projects" class="btn">View Projects</a>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- optional decorative visuals -->
+      </div>
+    </section>
+
+    <section id="about" class="container section">
+      <h2>About</h2>
+      <p>Brief bio, skills, and tools. Mention your specialties and the types of projects you enjoy.</p>
+    </section>
+
+    <section id="projects" class="container section">
+      <h2>Projects</h2>
+      <p class="section-subtitle">A selection of recent work</p>
+
+      <div class="grid">
+        <!-- Repeat for each project -->
+        <article class="card">
+          <img src="project1.jpg" alt="Project 1 thumbnail" class="card-thumb" />
+          <div class="card-body">
+            <h3 class="card-title">Project Title One</h3>
+            <p class="card-desc">Short description of the project, technologies used, and outcome.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="project2.jpg" alt="Project 2 thumbnail" class="card-thumb" />
+          <div class="card-body">
+            <h3 class="card-title">Project Title Two</h3>
+            <p class="card-desc">Short description of the project, technologies used, and outcome.</p>
+          </div>
+        </article>
+
+        <!-- Add more cards as needed -->
+      </div>
+    </section>
+
+    <section id="contact" class="container section contact">
+      <h2>Contact</h2>
+      <form class="contact-form" action="#" method="post" novalidate>
+        <div class="form-row">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+        </div>
+        <label class="full">
+          <span>Message</span>
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p>&copy; Your Name, 2024–2026. Built with CSS.</p>
+  </footer>
+
+  <script>
+    // Simple theme toggle (dark/light)
+    const toggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme');
+    if (stored) {
+      root.setAttribute('data-theme', stored);
+    }
+    toggle?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.textContent = next === 'dark' ? '🌙' : '🌞';
+    });
+  </script>
+</body>
+</html>
