@@ -1,108 +1,225 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joland H. Gabotero | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
+<!-- CSS-only dark/light toggle: a hidden checkbox controls the theme via :checked sibling selector -->
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">Your Name</a>
-      <nav aria-label="Site navigation" class="nav">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <button id="theme-toggle" aria-label="Toggle theme">🌗</button>
-      </nav>
-    </div>
-  </header>
 
-  <main>
-    <section id="hero" class="hero container">
-      <div class="hero-copy">
-        <h1>Hello, I’m Your Name</h1>
-        <p>I’m a front-end developer and designer crafting accessible, responsive experiences.</p>
-        <a href="#projects" class="btn">View Projects</a>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <!-- optional decorative visuals -->
-      </div>
-    </section>
+    <!-- Dark mode toggle (CSS only) -->
+    <input type="checkbox" id="theme-toggle" class="theme-checkbox" aria-label="Toggle dark mode">
 
-    <section id="about" class="container section">
-      <h2>About</h2>
-      <p>Brief bio, skills, and tools. Mention your specialties and the types of projects you enjoy.</p>
-    </section>
-
-    <section id="projects" class="container section">
-      <h2>Projects</h2>
-      <p class="section-subtitle">A selection of recent work</p>
-
-      <div class="grid">
-        <!-- Repeat for each project -->
-        <article class="card">
-          <img src="project1.jpg" alt="Project 1 thumbnail" class="card-thumb" />
-          <div class="card-body">
-            <h3 class="card-title">Project Title One</h3>
-            <p class="card-desc">Short description of the project, technologies used, and outcome.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="project2.jpg" alt="Project 2 thumbnail" class="card-thumb" />
-          <div class="card-body">
-            <h3 class="card-title">Project Title Two</h3>
-            <p class="card-desc">Short description of the project, technologies used, and outcome.</p>
-          </div>
-        </article>
-
-        <!-- Add more cards as needed -->
-      </div>
-    </section>
-
-    <section id="contact" class="container section contact">
-      <h2>Contact</h2>
-      <form class="contact-form" action="#" method="post" novalidate>
-        <div class="form-row">
-          <label>
-            <span>Name</span>
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="email" name="email" required />
-          </label>
+    <header>
+        <div class="header-inner">
+            <span class="brand">JG.</span>
+            <nav>
+                <a href="#abtid">About</a>
+                <a href="#skillsid">Skills</a>
+                <a href="#projectid">Projects</a>
+                <a href="#contactid">Contact</a>
+            </nav>
+            <label for="theme-toggle" class="toggle-label" title="Toggle light / dark mode">
+                <span class="toggle-icon sun">☀️</span>
+                <span class="toggle-icon moon">🌙</span>
+            </label>
         </div>
-        <label class="full">
-          <span>Message</span>
-          <textarea name="message" rows="4" required></textarea>
-        </label>
-        <button type="submit" class="btn">Send Message</button>
-      </form>
-    </section>
-  </main>
+    </header>
 
-  <footer class="site-footer container">
-    <p>&copy; Your Name, 2024–2026. Built with CSS.</p>
-  </footer>
+    <!-- Main -->
+    <main>
+        <!-- Hero / About -->
+        <section id="abtid" class="hero-section">
+            <div class="hero-img-wrap">
+                <img src="/images/1000043249.png" alt="Joland H. Gabotero" class="avatar">
+            </div>
+            <div class="hero-text">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1>Joland H. Gabotero</h1>
+                <p class="hero-role">Aspiring Software Developer &nbsp;·&nbsp; HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript</p>
+                <p class="hero-bio">I'm a student learning web development, passionate about building clean and functional web experiences.</p>
+                <a href="#contactid" class="btn">Get in Touch</a>
+                <a href="#projectid" class="btn btn-outline">View Projects</a>
+            </div>
+        </section>
 
-  <script>
-    // Simple theme toggle (dark/light)
-    const toggle = document.getElementById('theme-toggle');
-    const root = document.documentElement;
-    const stored = localStorage.getItem('theme');
-    if (stored) {
-      root.setAttribute('data-theme', stored);
-    }
-    toggle?.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      toggle.textContent = next === 'dark' ? '🌙' : '🌞';
-    });
-  </script>
+        <!-- Skills -->
+        <section id="skillsid" class="section">
+            <h2>Skills</h2>
+            <p class="section-sub">Technologies I work with</p>
+            <ul class="skills-list">
+                <li class="skill-pill">
+                    <span class="skill-icon">🌐</span> HTML
+                </li>
+                <li class="skill-pill">
+                    <span class="skill-icon">🎨</span> CSS
+                </li>
+                <li class="skill-pill">
+                    <span class="skill-icon">⚡</span> JavaScript
+                </li>
+            </ul>
+        </section>
+
+        <!-- Projects -->
+        <section id="projectid" class="section">
+            <h2>Projects</h2>
+            <p class="section-sub">A selection of my recent work</p>
+            <div class="projects-grid">
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Personal Portfolio Website</h3>
+                        <p class="card-desc">A personal portfolio website showcasing my skills and projects using HTML, CSS, and JavaScript.</p>
+                        <div class="card-links">
+                            <a href="#" class="link-btn">View Project →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">First HTML Project</h3>
+                        <p class="card-desc">A responsive web design project that adapts to different screen sizes using HTML and CSS media queries.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/first-html-project" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://first-html-project-gray.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML User Account Creation</h3>
+                        <p class="card-desc">A simple user account creation form built with HTML.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-user-account-creation" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-user-account-creation.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Account Creation Form</h3>
+                        <p class="card-desc">A student registration form created using HTML for enrollment purposes.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-user-account-creation-form-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-user-account-creation-form-jol.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Iframe</h3>
+                        <p class="card-desc">A project demonstrating the use of HTML iframe elements to embed external content within a webpage.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-it-portal-iframe-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-it-portal-iframe-joland-gabote.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Student Registration Form</h3>
+                        <p class="card-desc">A student registration form allowing users to input enrollment information.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-student-registration-form-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-student-registration-form-jola.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Demo: Video & Background Music</h3>
+                        <p class="card-desc">A project demonstrating HTML video and background music elements in a webpage.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-it-project-demo-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-it-project-demo-joland-gaboter.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Webpage with Audio</h3>
+                        <p class="card-desc">Showcases integration of audio elements in an HTML webpage with playback controls.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-study-playlist-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-study-playlist-joland-gabotero.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Webpage Table</h3>
+                        <p class="card-desc">Demonstrates HTML table elements for viewing structured data in tabular format.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/html-IT-students-schedule-table-Joland-Gabotero" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://html-it-students-schedule-table-jol.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">HTML Certificate</h3>
+                        <p class="card-desc">A project showcasing the HTML code used in the freeCodeCamp certification.</p>
+                        <div class="card-links">
+                            <a href="https://github.com/Coffeee-ui/HtML-certificate-one" target="_blank" class="link-btn">GitHub →</a>
+                            <a href="https://ht-ml-certificate-one.vercel.app/" target="_blank" class="link-btn">Live →</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contactid" class="section contact-section">
+            <h2>Get in Touch</h2>
+            <p class="section-sub">Feel free to reach out anytime</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="contact-icon">📱</span>
+                    <div>
+                        <p class="contact-label">Mobile</p>
+                        <p class="contact-value">09297428861</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <span class="contact-icon">✉️</span>
+                    <div>
+                        <p class="contact-label">Email</p>
+                        <a href="mailto:gaboterojoland@gmail.com" class="contact-value contact-link">gaboterojoland@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Joland H. Gabotero &nbsp;·&nbsp; Built with HTML &amp; CSS</p>
+    </footer>
+
 </body>
 </html>
