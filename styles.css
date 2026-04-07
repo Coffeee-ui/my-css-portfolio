@@ -1,7 +1,7 @@
 /* =============================================
-   PORTFOLIO STYLESHEET
-   Light / Dark mode via CSS-only checkbox hack:
-   #theme-toggle:checked ~ * selects siblings
+   PORTFOLIO STYLESHEET — Multi-Page SPA
+   Light / Dark mode via CSS-only checkbox hack
+   Smooth page transitions via JS + CSS animations
    ============================================= */
 
 /* ---------- Google Font ---------- */
@@ -20,10 +20,11 @@
   --radius: 14px;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
   --shadow-lg: 0 10px 36px rgba(0, 0, 0, 0.11);
-  --transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  --transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  --header-h: 65px;
 }
 
-/* ---------- Dark mode: triggered by :checked checkbox ---------- */
+/* ---------- Dark mode ---------- */
 .theme-checkbox:checked ~ header,
 .theme-checkbox:checked ~ main,
 .theme-checkbox:checked ~ footer {
@@ -39,7 +40,6 @@
   --shadow-lg: 0 10px 36px rgba(0, 0, 0, 0.5);
 }
 
-/* ---------- Also apply dark bg to body ---------- */
 .theme-checkbox:checked ~ header {
   background: #0d1117;
 }
@@ -58,17 +58,13 @@ html {
 }
 
 body {
-  font-family:
-    "Inter",
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
   color: var(--fg);
   line-height: 1.6;
   transition: var(--transition);
+  overflow: hidden; /* Prevent scroll — pages are full viewport */
+  height: 100vh;
 }
 
 img {
@@ -80,7 +76,7 @@ a {
   text-decoration: none;
 }
 
-/* ---------- Hide the actual checkbox ---------- */
+/* Hide the actual checkbox */
 .theme-checkbox {
   position: absolute;
   width: 1px;
@@ -90,23 +86,21 @@ a {
   white-space: nowrap;
 }
 
-/* ---------- Layout Utility ---------- */
-.container {
-  width: min(1100px, 92%);
-  margin: 0 auto;
-}
-
 /* =============================================
    HEADER
    ============================================= */
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .header-inner {
@@ -119,12 +113,16 @@ header {
   gap: 16px;
 }
 
-/* Brand / Logo */
 .brand {
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--accent);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.brand:hover {
+  transform: scale(1.05);
 }
 
 /* Nav links */
@@ -133,23 +131,40 @@ nav {
   gap: 4px;
 }
 
-nav a {
+.nav-link {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--muted);
   padding: 8px 14px;
   border-radius: 8px;
-  transition:
-    color 0.2s,
-    background 0.2s;
+  transition: color 0.25s, background 0.25s;
+  position: relative;
 }
 
-nav a:hover {
+.nav-link:hover {
   color: var(--accent);
   background: var(--accent-s);
 }
 
-/* Theme toggle button */
+.nav-link.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Animated nav indicator bar */
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #a78bfa);
+  border-radius: 3px 3px 0 0;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: left, width;
+}
+
+/* Theme toggle */
 .toggle-label {
   display: flex;
   align-items: center;
@@ -160,76 +175,159 @@ nav a:hover {
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
-  transition:
-    background 0.2s,
-    border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
   flex-shrink: 0;
 }
-
 .toggle-label:hover {
   background: var(--accent-s);
   border-color: var(--accent);
+  transform: rotate(15deg);
 }
 
-/* Show sun (light mode visible), hide moon */
 .toggle-icon {
   font-size: 1.1rem;
   line-height: 1;
 }
-.moon {
-  display: none;
-}
-.sun {
-  display: block;
-}
+.moon { display: none; }
+.sun  { display: block; }
 
-/* When dark mode is ON → show moon, hide sun */
-.theme-checkbox:checked ~ header .moon {
-  display: block;
-}
-.theme-checkbox:checked ~ header .sun {
-  display: none;
-}
+.theme-checkbox:checked ~ header .moon { display: block; }
+.theme-checkbox:checked ~ header .sun  { display: none; }
 
 /* =============================================
-   MAIN
+   PAGES CONTAINER + PAGE TRANSITIONS
    ============================================= */
 main {
   background: var(--bg);
   transition: var(--transition);
+  position: relative;
+  height: calc(100vh - var(--header-h));
+  margin-top: var(--header-h);
+  overflow: hidden;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s 0.5s;
+  will-change: opacity, transform;
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s 0s;
+  z-index: 2;
+}
+
+/* Slide direction variants set by JS */
+.page.slide-up {
+  transform: translateY(30px);
+}
+.page.slide-down {
+  transform: translateY(-30px);
+}
+
+.page-content {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  padding: 60px 0 80px;
 }
 
 /* =============================================
-   HERO / ABOUT SECTION
+   SECTION HEADER (used on Skills, Projects, Contact pages)
+   ============================================= */
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-s);
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* =============================================
+   HERO / ABOUT
    ============================================= */
 .hero-section {
-  width: min(1100px, 92%);
-  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 56px;
-  padding: 80px 0 72px;
+  padding: 40px 0 0;
+  min-height: calc(100vh - var(--header-h) - 120px);
 }
 
 .hero-img-wrap {
   flex-shrink: 0;
+  position: relative;
 }
 
 .avatar {
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid var(--accent);
-  box-shadow:
-    0 0 0 8px var(--accent-s),
-    var(--shadow-lg);
-  transition: var(--transition);
+  box-shadow: 0 0 0 8px var(--accent-s), var(--shadow-lg);
+  transition: var(--transition), transform 0.4s;
+  position: relative;
+  z-index: 1;
 }
 
-/* Fallback if image not found */
-.avatar[src=""] {
-  background: var(--accent-s);
+.avatar:hover {
+  transform: scale(1.04);
+}
+
+/* Glow behind avatar */
+.avatar-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50%      { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
 }
 
 .hero-text {
@@ -246,12 +344,16 @@ main {
 }
 
 .hero-text h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--fg);
   margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-role {
@@ -272,28 +374,23 @@ main {
 .btn {
   display: inline-flex;
   align-items: center;
-  padding: 12px 24px;
+  padding: 12px 26px;
   border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 600;
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s,
-    background 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.25s;
   margin-right: 12px;
   margin-bottom: 8px;
-}
-
-.btn {
+  cursor: pointer;
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
 }
 
 .btn:hover {
   background: var(--accent-h);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.45);
 }
 
 .btn-outline {
@@ -305,70 +402,118 @@ main {
 
 .btn-outline:hover {
   background: var(--accent-s);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* =============================================
-   DIVIDER BETWEEN SECTIONS
-   ============================================= */
-.section {
-  border-top: 1px solid var(--border);
-  padding: 72px 0;
-  width: min(1100px, 92%);
-  margin: 0 auto;
-  transition: var(--transition);
-}
-
-.section h2 {
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--fg);
-  margin-bottom: 4px;
-}
-
-.section-sub {
-  font-size: 0.95rem;
-  color: var(--muted);
-  margin-bottom: 36px;
-}
-
-/* =============================================
-   SKILLS
+   SKILLS — Expandable Cards
    ============================================= */
 .skills-list {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 640px;
 }
 
 .skill-pill {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--fg);
   box-shadow: var(--shadow);
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s,
-    border-color 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.35s;
 }
 
 .skill-pill:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
   border-color: var(--accent);
 }
 
+.skill-pill.expanded {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg), 0 0 0 3px var(--accent-s);
+}
+
+/* Header row (always visible) */
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 28px;
+}
+
 .skill-icon {
-  font-size: 1.1rem;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.skill-level {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Chevron toggle indicator */
+.skill-chevron {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--muted);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s;
+  flex-shrink: 0;
+}
+
+.skill-pill.expanded .skill-chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+/* Expandable description (hidden by default) */
+.skill-desc {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s ease,
+              padding 0.35s ease;
+  padding: 0 28px;
+}
+
+.skill-pill.expanded .skill-desc {
+  max-height: 200px;
+  opacity: 1;
+  padding: 0 28px 20px;
+}
+
+.skill-desc p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+/* Stagger entrance animation */
+.page.active .skill-pill {
+  animation: fadeSlideUp 0.5s ease both;
+  animation-delay: calc(var(--i) * 0.1s + 0.2s);
 }
 
 /* =============================================
@@ -388,19 +533,15 @@ main {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s,
-    border-color 0.2s;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
   border-color: var(--accent);
 }
 
-/* Colored top accent bar */
 .card-accent {
   height: 4px;
   background: linear-gradient(90deg, var(--accent), #a78bfa);
@@ -442,25 +583,25 @@ main {
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--bg);
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .link-btn:hover {
   background: var(--accent-s);
   border-color: var(--accent);
   color: var(--accent-h);
+  transform: translateY(-1px);
+}
+
+/* Stagger entrance for cards */
+.page.active .card {
+  animation: fadeSlideUp 0.45s ease both;
+  animation-delay: calc(var(--i) * 0.06s + 0.15s);
 }
 
 /* =============================================
    CONTACT
    ============================================= */
-.contact-section {
-  /* inherits .section */
-}
-
 .contact-grid {
   display: flex;
   flex-wrap: wrap;
@@ -474,24 +615,27 @@ main {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 28px;
+  padding: 24px 32px;
   box-shadow: var(--shadow);
   flex: 1;
-  min-width: 240px;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s,
-    border-color 0.2s;
+  min-width: 260px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .contact-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
   border-color: var(--accent);
 }
 
+/* Stagger entrance for contact cards */
+.page.active .contact-card {
+  animation: fadeSlideUp 0.5s ease both;
+  animation-delay: calc(var(--i) * 0.12s + 0.2s);
+}
+
 .contact-icon {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .contact-label {
@@ -524,32 +668,79 @@ main {
    FOOTER
    ============================================= */
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
   background: var(--surface);
   border-top: 1px solid var(--border);
-  padding: 24px 0;
+  padding: 14px 0;
   text-align: center;
   transition: var(--transition);
 }
 
 footer p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
+}
+
+/* =============================================
+   KEYFRAME ANIMATIONS
+   ============================================= */
+
+/* Entrance: fade + slide up */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   CUSTOM SCROLLBAR (pages)
+   ============================================= */
+.page::-webkit-scrollbar {
+  width: 6px;
+}
+.page::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.page::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 /* =============================================
    RESPONSIVE
    ============================================= */
 @media (max-width: 768px) {
+  :root {
+    --header-h: 60px;
+  }
+
   .hero-section {
     flex-direction: column;
     text-align: center;
-    padding: 48px 0 40px;
     gap: 32px;
+    padding-top: 24px;
+    min-height: auto;
   }
 
   .avatar {
     width: 160px;
     height: 160px;
+  }
+  .avatar-glow {
+    width: 200px;
+    height: 200px;
   }
 
   .hero-bio {
@@ -557,13 +748,13 @@ footer p {
     margin-right: auto;
   }
 
-  nav a {
+  .nav-link {
     padding: 8px 10px;
     font-size: 0.85rem;
   }
 
-  .section {
-    padding: 48px 0;
+  .page-content {
+    padding: 40px 0 100px;
   }
 
   .projects-grid {
@@ -572,6 +763,14 @@ footer p {
 
   .contact-grid {
     flex-direction: column;
+  }
+
+  .skills-list {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
   }
 }
 
@@ -586,5 +785,8 @@ footer p {
   }
   .hero-text h1 {
     font-size: 1.8rem;
+  }
+  .nav-indicator {
+    display: none;
   }
 }

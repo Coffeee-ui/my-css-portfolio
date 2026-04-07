@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joland H. Gabotero | Portfolio</title>
+    <meta name="description" content="Portfolio of Joland H. Gabotero — Aspiring Software Developer skilled in HTML, CSS, and JavaScript.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,208 +19,275 @@
 
     <header>
         <div class="header-inner">
-            <span class="brand">JG.</span>
-            <nav>
-                <a href="#abtid">About</a>
-                <a href="#skillsid">Skills</a>
-                <a href="#projectid">Projects</a>
-                <a href="#contactid">Contact</a>
+            <a href="#about" class="brand" id="brand-link">JG.</a>
+            <nav id="main-nav">
+                <a href="#about" class="nav-link active" data-page="about">About</a>
+                <a href="#skills" class="nav-link" data-page="skills">Skills</a>
+                <a href="#projects" class="nav-link" data-page="projects">Projects</a>
+                <a href="#contact" class="nav-link" data-page="contact">Contact</a>
             </nav>
             <label for="theme-toggle" class="toggle-label" title="Toggle light / dark mode">
                 <span class="toggle-icon sun">☀️</span>
                 <span class="toggle-icon moon">🌙</span>
             </label>
         </div>
+        <!-- Animated page indicator bar -->
+        <div class="nav-indicator" id="nav-indicator"></div>
     </header>
 
-    <!-- Main -->
-    <main>
-        <!-- Hero / About -->
-        <section id="abtid" class="hero-section">
-            <div class="hero-img-wrap">
-                <img src="/images/1000043249.png" alt="Joland H. Gabotero" class="avatar">
-            </div>
-            <div class="hero-text">
-                <p class="hero-greeting">Hello, I'm</p>
-                <h1>Joland H. Gabotero</h1>
-                <p class="hero-role">Aspiring Software Developer &nbsp;·&nbsp; HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript</p>
-                <p class="hero-bio">I'm a student learning web development, passionate about building clean and functional web experiences.</p>
-                <a href="#contactid" class="btn">Get in Touch</a>
-                <a href="#projectid" class="btn btn-outline">View Projects</a>
-            </div>
-        </section>
+    <!-- Main — pages container -->
+    <main class="pages-container" id="pages-container">
 
-        <!-- Skills -->
-        <section id="skillsid" class="section">
-            <h2>Skills</h2>
-            <p class="section-sub">Technologies I work with</p>
-            <ul class="skills-list">
-                <li class="skill-pill">
-                    <span class="skill-icon">🌐</span> HTML
-                </li>
-                <li class="skill-pill">
-                    <span class="skill-icon">🎨</span> CSS
-                </li>
-                <li class="skill-pill">
-                    <span class="skill-icon">⚡</span> JavaScript
-                </li>
-            </ul>
-        </section>
-
-        <!-- Projects -->
-        <section id="projectid" class="section">
-            <h2>Projects</h2>
-            <p class="section-sub">A selection of my recent work</p>
-            <div class="projects-grid">
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">Personal Portfolio Website</h3>
-                        <p class="card-desc">A personal portfolio website showcasing my skills and projects using HTML, CSS, and JavaScript.</p>
-                        <div class="card-links">
-                            <a href="#" class="link-btn">View Project →</a>
-                        </div>
+        <!-- ============ PAGE: About ============ -->
+        <section class="page active" data-page="about" id="page-about">
+            <div class="page-content">
+                <div class="hero-section">
+                    <div class="hero-img-wrap">
+                        <img src="images/1000043249.png" alt="Joland H. Gabotero" class="avatar">
+                        <div class="avatar-glow"></div>
                     </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">First HTML Project</h3>
-                        <p class="card-desc">A responsive web design project that adapts to different screen sizes using HTML and CSS media queries.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/first-html-project" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://first-html-project-gray.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML User Account Creation</h3>
-                        <p class="card-desc">A simple user account creation form built with HTML.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-user-account-creation" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-user-account-creation.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Account Creation Form</h3>
-                        <p class="card-desc">A student registration form created using HTML for enrollment purposes.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-user-account-creation-form-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-user-account-creation-form-jol.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Iframe</h3>
-                        <p class="card-desc">A project demonstrating the use of HTML iframe elements to embed external content within a webpage.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-it-portal-iframe-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-it-portal-iframe-joland-gabote.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Student Registration Form</h3>
-                        <p class="card-desc">A student registration form allowing users to input enrollment information.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-student-registration-form-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-student-registration-form-jola.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">Demo: Video & Background Music</h3>
-                        <p class="card-desc">A project demonstrating HTML video and background music elements in a webpage.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-it-project-demo-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-it-project-demo-joland-gaboter.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Webpage with Audio</h3>
-                        <p class="card-desc">Showcases integration of audio elements in an HTML webpage with playback controls.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-study-playlist-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-study-playlist-joland-gabotero.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Webpage Table</h3>
-                        <p class="card-desc">Demonstrates HTML table elements for viewing structured data in tabular format.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/html-IT-students-schedule-table-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://html-it-students-schedule-table-jol.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-accent"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">HTML Certificate</h3>
-                        <p class="card-desc">A project showcasing the HTML code used in the freeCodeCamp certification.</p>
-                        <div class="card-links">
-                            <a href="https://github.com/Coffeee-ui/HtML-certificate-one" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
-                            <a href="https://ht-ml-certificate-one.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contactid" class="section contact-section">
-            <h2>Get in Touch</h2>
-            <p class="section-sub">Feel free to reach out anytime</p>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <span class="contact-icon">📱</span>
-                    <div>
-                        <p class="contact-label">Mobile</p>
-                        <p class="contact-value">09297428861</p>
-                    </div>
-                </div>
-                <div class="contact-card">
-                    <span class="contact-icon">✉️</span>
-                    <div>
-                        <p class="contact-label">Email</p>
-                        <a href="mailto:gaboterojoland@gmail.com" class="contact-value contact-link">gaboterojoland@gmail.com</a>
+                    <div class="hero-text">
+                        <p class="hero-greeting">Hello, I'm</p>
+                        <h1>Joland H. Gabotero</h1>
+                        <p class="hero-role">Aspiring Software Developer &nbsp;·&nbsp; HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript</p>
+                        <p class="hero-bio">I'm a student learning web development, passionate about building clean and functional web experiences.</p>
+                        <a href="#contact" class="btn" data-nav="contact">Get in Touch</a>
+                        <a href="#projects" class="btn btn-outline" data-nav="projects">View Projects</a>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ============ PAGE: Skills ============ -->
+        <section class="page" data-page="skills" id="page-skills">
+            <div class="page-content">
+                <div class="section-header">
+                    <span class="section-tag">What I Know</span>
+                    <h2>Skills</h2>
+                    <p class="section-sub">Technologies I work with</p>
+                </div>
+                <ul class="skills-list">
+                    <li class="skill-pill" style="--i:0" data-skill="html">
+                        <div class="skill-header">
+                            <span class="skill-icon">🌐</span>
+                            <div>
+                                <span class="skill-name">HTML</span>
+                                <span class="skill-level">Markup & Structure</span>
+                            </div>
+                            <span class="skill-chevron">▾</span>
+                        </div>
+                        <div class="skill-desc">
+                            <p>I'm an advanced beginner in HTML. I have a solid understanding of semantic elements, forms, tables, iframes, and multimedia embedding. I can build well-structured, accessible web pages from scratch and I'm continuing to deepen my knowledge every day.</p>
+                        </div>
+                    </li>
+                    <li class="skill-pill" style="--i:1" data-skill="css">
+                        <div class="skill-header">
+                            <span class="skill-icon">🎨</span>
+                            <div>
+                                <span class="skill-name">CSS</span>
+                                <span class="skill-level">Styling & Layout</span>
+                            </div>
+                            <span class="skill-chevron">▾</span>
+                        </div>
+                        <div class="skill-desc">
+                            <p>I'm an advanced beginner in CSS. I'm comfortable with Flexbox, Grid, responsive design with media queries, custom properties, transitions, and animations. I enjoy crafting clean, modern interfaces with attention to detail.</p>
+                        </div>
+                    </li>
+                    <li class="skill-pill" style="--i:2" data-skill="javascript">
+                        <div class="skill-header">
+                            <span class="skill-icon">⚡</span>
+                            <div>
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-level">Logic & Interactivity</span>
+                            </div>
+                            <span class="skill-chevron">▾</span>
+                        </div>
+                        <div class="skill-desc">
+                            <p>I'm a beginner in JavaScript, actively learning DOM manipulation, event handling, and building interactive features. I recently built a fully functional calculator using vanilla JS and I'm excited to keep growing my skills.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============ PAGE: Projects ============ -->
+        <section class="page" data-page="projects" id="page-projects">
+            <div class="page-content">
+                <div class="section-header">
+                    <span class="section-tag">My Work</span>
+                    <h2>Projects</h2>
+                    <p class="section-sub">A selection of my recent work</p>
+                </div>
+                <div class="projects-grid">
+
+                    <article class="card" style="--i:0">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Personal Portfolio Website</h3>
+                            <p class="card-desc">A personal portfolio website showcasing my skills and projects using HTML, CSS, and JavaScript.</p>
+                            <div class="card-links">
+                                <a href="#" class="link-btn">View Project →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:1">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">First HTML Project</h3>
+                            <p class="card-desc">A responsive web design project that adapts to different screen sizes using HTML and CSS media queries.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/first-html-project" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://first-html-project-gray.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:2">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML User Account Creation</h3>
+                            <p class="card-desc">A simple user account creation form built with HTML.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-user-account-creation" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-user-account-creation.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:3">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Account Creation Form</h3>
+                            <p class="card-desc">A student registration form created using HTML for enrollment purposes.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-user-account-creation-form-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-user-account-creation-form-jol.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:4">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Iframe</h3>
+                            <p class="card-desc">A project demonstrating the use of HTML iframe elements to embed external content within a webpage.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-it-portal-iframe-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-it-portal-iframe-joland-gabote.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:5">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Student Registration Form</h3>
+                            <p class="card-desc">A student registration form allowing users to input enrollment information.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-student-registration-form-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-student-registration-form-jola.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:6">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Demo: Video & Background Music</h3>
+                            <p class="card-desc">A project demonstrating HTML video and background music elements in a webpage.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-it-project-demo-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-it-project-demo-joland-gaboter.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:7">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Webpage with Audio</h3>
+                            <p class="card-desc">Showcases integration of audio elements in an HTML webpage with playback controls.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-study-playlist-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-study-playlist-joland-gabotero.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:8">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Webpage Table</h3>
+                            <p class="card-desc">Demonstrates HTML table elements for viewing structured data in tabular format.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/html-IT-students-schedule-table-Joland-Gabotero" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://html-it-students-schedule-table-jol.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:9">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">HTML Certificate</h3>
+                            <p class="card-desc">A project showcasing the HTML code used in the freeCodeCamp certification.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/HtML-certificate-one" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://ht-ml-certificate-one.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card" style="--i:10">
+                        <div class="card-accent"></div>
+                        <div class="card-body">
+                            <h3 class="card-title">DOM Calculator</h3>
+                            <p class="card-desc">A simple calculator project that demonstrates the use of DOM elements to perform basic arithmetic operations.</p>
+                            <div class="card-links">
+                                <a href="https://github.com/Coffeee-ui/DOM-Calculator" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="https://dom-calculator-blush.vercel.app/" target="_blank" rel="noopener" class="link-btn">Live →</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PAGE: Contact ============ -->
+        <section class="page" data-page="contact" id="page-contact">
+            <div class="page-content">
+                <div class="section-header">
+                    <span class="section-tag">Say Hello</span>
+                    <h2>Get in Touch</h2>
+                    <p class="section-sub">Feel free to reach out anytime</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-card" style="--i:0">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <p class="contact-label">Mobile</p>
+                            <p class="contact-value">09297428861</p>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="--i:1">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <p class="contact-label">Email</p>
+                            <a href="mailto:gaboterojoland@gmail.com" class="contact-value contact-link">gaboterojoland@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
-        <p>&copy; 2026 Joland H. Gabotero &nbsp;·&nbsp; Built with HTML &amp; CSS</p>
+        <p>&copy; 2026 Joland H. Gabotero &nbsp;·&nbsp; Built with HTML, CSS &amp; JavaScript</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
