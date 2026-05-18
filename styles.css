@@ -27,7 +27,8 @@
 /* ---------- Dark mode ---------- */
 .theme-checkbox:checked ~ header,
 .theme-checkbox:checked ~ main,
-.theme-checkbox:checked ~ footer {
+.theme-checkbox:checked ~ footer,
+.theme-checkbox:checked ~ #bg-canvas {
   --bg: #0d1117;
   --surface: #161b22;
   --border: #30363d;
@@ -75,6 +76,8 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  background-color: var(--bg);
+  transition: var(--transition);
 }
 
 img {
