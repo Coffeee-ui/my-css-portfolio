@@ -71,6 +71,9 @@
 
     // ---- Expandable skill cards ----
     initSkillCards();
+
+    // ---- Canvas Background ----
+    initCanvasBackground();
   }
 
   // =============================================
@@ -92,6 +95,7 @@
     currentPage = pageName;
     window.location.hash = pageName;
     updateIndicator();
+    updateHeaderAvatar(pageName);
   }
 
   function handleNavClick(e) {
@@ -151,10 +155,18 @@
 
     currentPage = pageName;
     updateIndicator();
+    updateHeaderAvatar(pageName);
 
     setTimeout(() => {
       isTransitioning = false;
     }, 550);
+  }
+
+  function updateHeaderAvatar(pageName) {
+    const header = document.getElementById("main-header");
+    if (header) {
+      header.classList.toggle("show-header-avatar", pageName !== "about");
+    }
   }
 
   // =============================================
@@ -311,6 +323,160 @@
         pill.classList.toggle("expanded", !wasExpanded);
       });
     });
+  }
+
+  // =============================================
+  //  CANVAS BACKGROUND
+  // =============================================
+
+  function initCanvasBackground() {
+    const canvas = document.getElementById("bg-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let width, height;
+    
+    let particles = [];
+    const properties = {
+      particleRadius: 3,
+      particleMaxVelocity: 0.5,
+      lineLength: 150,
+      particleLife: 6,
+    };
+    
+    let mouse = { x: null, y: null, radius: 200 };
+    
+    window.addEventListener('mousemove', function(e) {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+    
+    window.addEventListener('mouseout', function() {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initParticles();
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.velocityX = Math.random() * (properties.particleMaxVelocity * 2) - properties.particleMaxVelocity;
+        this.velocityY = Math.random() * (properties.particleMaxVelocity * 2) - properties.particleMaxVelocity;
+        this.life = Math.random() * properties.particleLife * 60;
+      }
+      position() {
+        this.x + this.velocityX > width && this.velocityX > 0 || this.x + this.velocityX < 0 && this.velocityX < 0 ? this.velocityX *= -1 : this.velocityX;
+        this.y + this.velocityY > height && this.velocityY > 0 || this.y + this.velocityY < 0 && this.velocityY < 0 ? this.velocityY *= -1 : this.velocityY;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+      }
+      reDraw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, properties.particleRadius, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+      reCalculateLife() {
+        if(this.life < 1){
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.velocityX = Math.random() * (properties.particleMaxVelocity * 2) - properties.particleMaxVelocity;
+          this.velocityY = Math.random() * (properties.particleMaxVelocity * 2) - properties.particleMaxVelocity;
+          this.life = Math.random() * properties.particleLife * 60;
+        }
+        this.life--;
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      let numberOfParticles = (width * height) / 12000;
+      for(let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function getThemeColors() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const isDark = themeToggle && themeToggle.checked;
+      if (isDark) {
+        return { dot: 'rgba(129, 140, 248, 0.4)', line: '129, 140, 248' }; // #818cf8
+      } else {
+        return { dot: 'rgba(79, 70, 229, 0.4)', line: '79, 70, 229' }; // #4f46e5
+      }
+    }
+
+    function drawLines() {
+      let x1, y1, x2, y2, length, opacity;
+      const colors = getThemeColors();
+      
+      for(let i in particles){
+        for(let j in particles){
+          x1 = particles[i].x;
+          y1 = particles[i].y;
+          x2 = particles[j].x;
+          y2 = particles[j].y;
+          length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+          if(length < properties.lineLength){
+            opacity = 1 - length / properties.lineLength;
+            ctx.lineWidth = '0.5';
+            ctx.strokeStyle = `rgba(${colors.line}, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.closePath();
+            ctx.stroke();
+          }
+        }
+        
+        if (mouse.x && mouse.y) {
+          x1 = particles[i].x;
+          y1 = particles[i].y;
+          x2 = mouse.x;
+          y2 = mouse.y;
+          length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+          if(length < mouse.radius){
+            opacity = 1 - length / mouse.radius;
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = `rgba(${colors.line}, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.closePath();
+            ctx.stroke();
+            
+            if(length < 50) {
+              particles[i].x -= (x2 - x1) * 0.05;
+              particles[i].y -= (y2 - y1) * 0.05;
+            }
+          }
+        }
+      }
+    }
+
+    function loop() {
+      requestAnimationFrame(loop);
+      ctx.clearRect(0, 0, width, height);
+      const colors = getThemeColors();
+      ctx.fillStyle = colors.dot;
+      for(let i in particles){
+        particles[i].position();
+        particles[i].reCalculateLife();
+        particles[i].reDraw();
+      }
+      drawLines();
+    }
+    
+    window.addEventListener('resize', resize);
+    resize();
+    loop();
   }
 
   // ---- Kick off ----

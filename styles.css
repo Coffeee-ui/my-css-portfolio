@@ -67,6 +67,16 @@ body {
   height: 100vh;
 }
 
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -110,6 +120,44 @@ header {
   justify-content: space-between;
   padding: 16px 40px;
   gap: 16px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-avatar-link {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8) translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
+  pointer-events: none;
+}
+
+.show-header-avatar .header-avatar-link {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateX(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s;
+  pointer-events: auto;
+}
+
+.header-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-s);
+  transition: transform 0.2s;
+}
+
+.header-avatar:hover {
+  transform: scale(1.1);
 }
 
 .brand {
@@ -197,7 +245,7 @@ nav {
    PAGES CONTAINER + PAGE TRANSITIONS
    ============================================= */
 main {
-  background: var(--bg);
+  background: transparent;
   transition: var(--transition);
   position: relative;
   height: calc(100vh - var(--header-h));

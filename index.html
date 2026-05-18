@@ -13,13 +13,19 @@
 
 <!-- CSS-only dark/light toggle: a hidden checkbox controls the theme via :checked sibling selector -->
 <body>
+    <canvas id="bg-canvas"></canvas>
 
     <!-- Dark mode toggle (CSS only) -->
     <input type="checkbox" id="theme-toggle" class="theme-checkbox" aria-label="Toggle dark mode">
 
-    <header>
+    <header id="main-header">
         <div class="header-inner">
-            <a href="#about" class="brand" id="brand-link">JG.</a>
+            <div class="header-left">
+                <a href="#about" class="brand" id="brand-link">JG.</a>
+                <a href="#about" class="header-avatar-link" id="header-avatar-link" data-nav="about" title="Back to About">
+                    <img src="images/1000043249.png" alt="Joland H. Gabotero" class="header-avatar" id="header-avatar">
+                </a>
+            </div>
             <nav id="main-nav">
                 <a href="#about" class="nav-link active" data-page="about">About</a>
                 <a href="#skills" class="nav-link" data-page="skills">Skills</a>
@@ -126,7 +132,8 @@
                             <h3 class="card-title">Personal Portfolio Website / CSS Project Portfolio</h3>
                             <p class="card-desc">A personal portfolio website showcasing my skills and projects using HTML, CSS, and JavaScript.</p>
                             <div class="card-links">
-                                <a href="#" class="link-btn">View Project →</a>
+                                <a href="https://github.com/Coffeee-ui/my-css-portfolio" target="_blank" rel="noopener" class="link-btn">GitHub →</a>
+                                <a href="#" class="link-btn">Live →</a>
                             </div>
                         </div>
                     </article>
