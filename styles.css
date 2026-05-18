@@ -104,12 +104,11 @@ header {
 }
 
 .header-inner {
-  width: min(1100px, 92%);
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 16px 40px;
   gap: 16px;
 }
 
@@ -242,9 +241,8 @@ main {
 }
 
 .page-content {
-  width: min(1100px, 92%);
-  margin: 0 auto;
-  padding: 60px 0 80px;
+  width: 100%;
+  padding: 60px 40px 80px;
 }
 
 /* =============================================
@@ -411,9 +409,8 @@ main {
 .skills-list {
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
-  max-width: 640px;
 }
 
 .skill-pill {
@@ -754,7 +751,7 @@ footer p {
   }
 
   .page-content {
-    padding: 40px 0 100px;
+    padding: 40px 20px 100px;
   }
 
   .projects-grid {
